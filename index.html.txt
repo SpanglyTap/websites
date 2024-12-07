@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #444;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      max-width: 500px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+      resize: none;
+      font-size: 14px;
+    }
+    button {
+      background-color: #5c6bc0;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3f4b94;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+    }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cookie Generator</h1>
+    <div class="error" id="errorMessage"></div>
+    <textarea id="cookieInput" rows="10" placeholder="Enter Cookie (700+ characters)..."></textarea>
+    <button onclick="generateCode()">Generate New Code</button>
+    <textarea id="newCookieOutput" rows="10" placeholder="Generated Cookie..." readonly></textarea>
+  </div>
+
+  <script>
+    // Function to generate a random code with uppercase letters and numbers only
+    function generateRandomCode(length) {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+      }
+      return result;
+    }
+
+    // Function to handle code generation when the button is clicked
+    function generateCode() {
+      const cookieInput = document.getElementById('cookieInput').value;
+      const errorMessage = document.getElementById('errorMessage');
+      const newCookieOutput = document.getElementById('newCookieOutput');
+
+      // Debugging line
+      console.log("Input cookie length:", cookieInput.length); 
+
+      // Check if the input is at least 700 characters long
+      if (cookieInput.length >= 700) {
+        // Clear error message
+        errorMessage.textContent = '';
+
+        // Generate a new code with the same length as the input
+        const newCode = generateRandomCode(cookieInput.length);
+
+        // Output the generated code
+        newCookieOutput.value = newCode;
+
+        // Debugging line
+        console.log("Generated new cookie:", newCode); 
+      } else {
+        // Show an error message if input is less than 700 characters
+        errorMessage.textContent = 'Error: Cookie must be at least 700 characters long.';
+        newCookieOutput.value = ''; // Clear the output field
+      }
+    }
+  </script>
+</body>
+</html>
